@@ -11,9 +11,9 @@ import time
 
 def checksum(activity_id, ts, token):
     md5 = hashlib.md5()
-    md5.update('content_resource/{}/activity'.format(activity_id))
-    md5.update(ts)
-    md5.update(token)
+    md5.update(('content_resource/{}/activity'.format(activity_id).encode('utf-8')))
+    md5.update(ts.encode('utf-8'))
+    md5.update(token.encode('utf-8'))
     return md5.hexdigest()
 
 
@@ -45,9 +45,9 @@ def send_get(url, params):
     return r.json()
 
 
-email = raw_input("Enter your e-mail for Zybooks: ")
+email = "<email address>"
 # print("Enter your password for Zybooks: ")
-password = getpass()
+password = "<password>"
 
 print("")
 
@@ -89,7 +89,7 @@ if login_data['success']:
         class_info_data = send_get(class_info_url, class_info_params)
 
         zybook = class_info_data['zybooks'][0]
-        
+
         # print(zybook)
 
         if (settings.COURSE != zybook_code
